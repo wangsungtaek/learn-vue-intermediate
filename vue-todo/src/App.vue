@@ -22,7 +22,7 @@ export default {
   created: function() {
     console.log("vue Created");
         if (localStorage.length > 0) {
-            for (var i = 0; i < localStorage.length; i++) {
+            for (let i = 0; i < localStorage.length; i++) {
                 if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
                     this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                 }
@@ -32,7 +32,7 @@ export default {
     },
   methods: {
     addOneItem: function(newTodoItem) {
-      var obj = { completed: false, item: newTodoItem }
+      const obj = { completed: false, item: newTodoItem }
       localStorage.setItem(newTodoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
