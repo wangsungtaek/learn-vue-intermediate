@@ -1,17 +1,35 @@
 <template>
   <div class="inputBox shadow">
-      <input type="text" v-model="newTodoItem" v-on:keyup.enter="newTodo">
-      <span class="addContainer" v-on:click="newTodo">
-          <i class="addBtn fas fa-plus" aria-hidden="true"></i>
-      </span>
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="newTodo">
+    <span class="addContainer" v-on:click="newTodo">
+        <i class="addBtn fas fa-plus" aria-hidden="true"></i>
+    </span>
+
+    <Modal v-if="showModal" @close="showModal = false">
+    <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+        <h3 slot="header">
+            경고!
+            <i class="fas fa-times closeModalBtn" v-on:click="showModal = false"></i>
+        </h3>
+        <div slot="body">
+            무언가를 입력하세요.
+        </div>
+        
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
     data: function() {
         return {
-            newTodoItem: ''
+            newTodoItem: '',
+            showModal: false
         }
     },
     methods: {
@@ -19,11 +37,16 @@ export default {
             if (this.newTodoItem !== '') {
                 this.$emit('addItem', this.newTodoItem);
                 this.clearInput();
+            } else {
+                this.showModal = !this.showModal;
             }
         },
         clearInput: function() {
             this.newTodoItem = '';
         }
+    },
+    components: {
+        Modal: Modal
     }
 }
 </script>
@@ -51,5 +74,8 @@ export default {
     .addBtn {
         color: white;
         vertical-align: middle; 
+    }
+    .closeModalBtn {
+        color: #42b983;
     }
 </style>
