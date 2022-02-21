@@ -26,14 +26,14 @@
 import Modal from './common/Modal.vue'
 
 export default {
-    data: function() {
+    data() {
         return {
             newTodoItem: '',
             showModal: false
         }
     },
     methods: {
-        newTodo: function() {
+        newTodo() {
             if (this.newTodoItem !== '') {
                 this.$emit('addItem', this.newTodoItem);
                 this.clearInput();
@@ -41,7 +41,7 @@ export default {
                 this.showModal = !this.showModal;
             }
         },
-        clearInput: function() {
+        clearInput() {
             this.newTodoItem = '';
         }
     },
