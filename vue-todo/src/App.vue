@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <todo-header></todo-header>
-    <todo-input v-on:addItem="addOneItem"></todo-input>
-    <todo-list v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></todo-list>
+    <todo-input></todo-input>
+    <todo-list v-bind:propsdata="todoItems" v-on:toggleItem="toggleOneItem"></todo-list>
     <todo-footer v-on:clearAll="clearAllItem"></todo-footer>
   </div>
 </template>
@@ -19,27 +19,7 @@ export default {
       todoItems: []
     }
   },
-  created() {
-    console.log("vue Created");
-        if (localStorage.length > 0) {
-            for (let i = 0; i < localStorage.length; i++) {
-                if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-                }
-                
-            }
-        }
-    },
   methods: {
-    addOneItem(newTodoItem) {
-      const obj = { completed: false, item: newTodoItem }
-      localStorage.setItem(newTodoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-    removeOneItem(todoItem, index) {
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
-    },
     toggleOneItem(todoItem, index) {
       this.todoItems[index].completed = !this.todoItems[index].completed
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
